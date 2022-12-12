@@ -389,7 +389,10 @@ final class CrowdinProvider implements ProviderInterface
          * @see https://developer.crowdin.com/api/v2/#operation/api.projects.files.getMany (Crowdin API)
          * @see https://developer.crowdin.com/enterprise/api/v2/#operation/api.projects.files.getMany (Crowdin Enterprise API)
          */
-        $response = $this->client->request('GET', 'files');
+        $response = $this->client->request('GET', 'files', [
+            'query' => [
+                'limit' => 250
+            ]]);
 
         if (200 !== $response->getStatusCode()) {
             throw new ProviderException('Unable to list Crowdin files.', $response);
